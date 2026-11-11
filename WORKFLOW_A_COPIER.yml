@@ -1,0 +1,21 @@
+name: Curve Pilot Autonome Prototype 0.1 Windows
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preparer Windows 64 bits
+        run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+      - name: Compiler les tests du moteur
+        run: cmake --build build --config Release --target engine_tests --parallel 2
+      - name: Tester les tampons complets
+        run: ctest --test-dir build -C Release --output-on-failure
+      - name: Compiler le programme autonome
+        run: cmake --build build --config Release --target CurvePilotAutonome --parallel 2
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Curve-Pilot-Autonome-0.1-Windows-x64
+          path: build/CurvePilotAutonome_artefacts/Release/
+          if-no-files-found: error
