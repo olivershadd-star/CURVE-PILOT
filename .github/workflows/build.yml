@@ -1,4 +1,4 @@
-name: Curve Pilot Autonome Prototype 0.1 Windows
+name: Curve Pilot Autonome Prototype 0.2 Windows
 on:
   workflow_dispatch:
 jobs:
@@ -16,6 +16,6 @@ jobs:
         run: cmake --build build --config Release --target CurvePilotAutonome --parallel 2
       - uses: actions/upload-artifact@v4
         with:
-          name: Curve-Pilot-Autonome-0.1-Windows-x64
+          name: Curve-Pilot-Autonome-0.2-Windows-x64
           path: build/CurvePilotAutonome_artefacts/Release/
           if-no-files-found: error
